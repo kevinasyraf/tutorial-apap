@@ -36,5 +36,39 @@ Kita sebaiknya menggunakan @RequestParam saat web tersebut merupakan web konvens
 ### What I did not understand
 - [ ] Apa yang sebenarnya terjadi di belakang layar pada framework Spring Boot?
 - [ ] Apa yang sebenarnya terjadi di belakang layar pada Maven?
-- [ ] Apa yang sebenarnya terjadi di belakang layar pada method method seperti @RequestParam dan @PathVariable?
+- [ ] Apa yang sebenarnya terjadi di belakang layar pada method method seperti @RequestParam dan @PathVariable?  
+  
+  
+## Tutorial 2
+### What I have learned today  
+Hari ini, saya sudah belajar lebih dalam mengenai prinsip MVC pada spring boot dengan membuat aplikasi hai dokter. Saya belajar menggunakan method method seperti request mapping dan path variable lebih dalam daripada minggu sebelumnya. Saya juga belajar mengenai kemungkinan-kemungkinan kesalahan yang terjadi pada Spring Boot karena saya mencoba menjalankan program ini dengan banyaknya trial and error.
+### Pertanyaan
+**1.  Cobalah untuk menambahkan sebuah resep dengan mengakses link berikut:
+     http://localhost:8080/resep/add?noResep=1&namaDokter=Papa%20APAP&namaPasien=Quanta%20Fasilkom&catatan=Semangat
+     Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi**  
+     Yang terjadi adalah munculnya halaman Whitelabel Error Page karena belum dibuatnya template html untuk add-resep yang direturn dari Controller saat menambahkan resep.  
+       
+**2.  Menurut kamu anotasi @Autowired pada class Controller tersebut merupakan
+      implementasi dari konsep apa? Dan jelaskan secara singkat cara kerja @Autowired tersebut dalam
+      konteks service dan controller yang telah kamu buat**  
+      Anotasi @Autowired pada class Controller merupakan implementasi dari konsep Dependency Injection. Cara kerja @Autowired adalah dia akan melakukan auto dependancy injection terhadap class yang kita berikan @Autowired  
+        
+**3.  Cobalah untuk menambahkan sebuah resep dengan mengakses link berikut:
+      http://localhost:8080/resep/add?noResep=1&namaDokter=Papa%20APAP&namaPasien=Quanta%20Fasilkom Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi.**  
+      Akan muncul Whitelabel Error Page karena pada link tersebut tidak terdapat parameter untuk catatan, yang di mana pada Controller parameter catatan dan juga parameter yang lainnya untuk add resep merupakan parameter yang required, sehingga harus ada keempat parameter yaitu noPasien, namaDokter, namaPasien, dan catatan.  
+        
+**4. Jika Papa APAP ingin melihat resep untuk pasien yang bernama Quanta, link apa yang
+     harus diakses?**  
+     Link yang harus diakses oleh Papa APAP adalah http://localhost:8080/resep/viewall untuk melihat semua resep yang tersedia, lalu bisa juga melihat detail pada resep tersebut dengan mencari nomor resepnya lalu membuka link http://localhost:8080/resep/view/no-resep/<noResep> yang di mana pasien Quanta memiliki nomor resep 1 sehingga link yang harus dibuka adalah http://localhost:8080/resep/view/no-resep/1  
+       
+**5. Tambahkan 1 contoh resep lainnya sesukamu. Lalu cobalah untuk mengakses
+     http://localhost:8080/resep/viewall , apa yang akan ditampilkan? Sertakan juga bukti screenshotmu.**  
+     ![SS Pertanyaan No 5](https://ibb.co/N954S3L)   https://ibb.co/N954S3L
+     ![SS Pertanyaan No 5](https://ibb.co/1Rqz4SL)   https://ibb.co/1Rqz4SL
+     Yang akan ditampilkan adalah semua resep yang sudah dibuat di web, dalam kasus ini yang ditampilkan merupakan resep dengan nomor resep 1 yang sudah dibuat sebelumnya pada saat tutorial dan juga 1 resep lagi yaitu resep dengan nomor resep 2 yang sudah saya buat.  
+       
+ ### What I did not understand
+ [ ] Apa yang sebenarnya terjadi di belakang layar pada method @Autowire?  
+ [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?                         
+
 
