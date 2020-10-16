@@ -76,10 +76,10 @@ public class ObatController {
 
         if (id.isEmpty()) {
             model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error";
+            return "error-1";
         } else if (obatService.getObatById(id.get()) == null) {
             model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error";
+            return "error-1";
         }
 
         try {
@@ -88,7 +88,7 @@ public class ObatController {
             model.addAttribute("obat", id.get());
         } catch (Exception err) {
             model.addAttribute("status","Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error";
+            return "error-1";
         }
         return "delete-obat";
     }

@@ -104,7 +104,7 @@ public class ResepController {
             model.addAttribute("noResep", noResep.get());
         } catch (Exception err) {
             model.addAttribute("status","Nomor resep tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error";
+            return "error-1";
         }
         return "delete-resep";
     }
