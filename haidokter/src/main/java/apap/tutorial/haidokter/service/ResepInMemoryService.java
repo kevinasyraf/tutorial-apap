@@ -26,9 +26,9 @@ public class ResepInMemoryService implements ResepService {
     }
 
     @Override
-    public ResepModel getResepByNomorResep(String noResep) {
+    public ResepModel getResepByNomorResep(Long noResep) {
         for (ResepModel resep : listResep) {
-            if (resep.getNoResep().equals(noResep)) {
+            if (resep.getNoResep() == noResep) {
                 return resep;
             }
         }
@@ -36,12 +36,17 @@ public class ResepInMemoryService implements ResepService {
     }
 
     @Override
-    public void deleteResepByNomorResep(String noResep) {
+    public void deleteResepByNomorResep(Long noResep) {
         for (ResepModel resep : listResep) {
-            if (resep.getNoResep().equals(noResep)) {
+            if (resep.getNoResep() == noResep) {
                 listResep.remove(resep);
                 break;
             }
         }
+    }
+
+    @Override
+    public ResepModel updateResep(ResepModel resepModel) {
+        return null;
     }
 }

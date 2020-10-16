@@ -68,7 +68,33 @@ Hari ini, saya sudah belajar lebih dalam mengenai prinsip MVC pada spring boot d
      Yang akan ditampilkan adalah semua resep yang sudah dibuat di web, dalam kasus ini yang ditampilkan merupakan resep dengan nomor resep 1 yang sudah dibuat sebelumnya pada saat tutorial dan juga 1 resep lagi yaitu resep dengan nomor resep 2 yang sudah saya buat.  
        
  ### What I did not understand
- [ ] Apa yang sebenarnya terjadi di belakang layar pada method @Autowire?  
- [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?                         
+ - [ ] Apa yang sebenarnya terjadi di belakang layar pada method @Autowire?  
+ - [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?     
+   
+     
+     
+ ## Tutorial 3
+ ### What I have learned today  
+ Hari ini, saya sudah belajar mengenai repository pada spring boot dan juga penggunaan database yang dapat terintegrasi langsung dalam aplikasi spring boot.
+ ### Pertanyaan
+ **1.  Pada class ResepDb, terdapat method findByNoResep, apakah kegunaan dari method tersebut?**  
+      Method findByNoResep pada class ResepDB adalah untuk mencari model resep berdasarkan nomor resepnya, yang di mana nomor resep merupakan id dalam database resep  
+        
+ **2.  Pada class ResepController, jelaskan perbedaan method addResepFormPage dan addResepSubmit**  
+       addResepFormPage digunakan untuk mengarahkan ke page form add resep, sehingga pada method tersebut tidak menerima input apapun dan hanya membuat objek resep model baru untuk diisi datanya. Pada method addResepSubmit, data-data dari form yang sudah diisi akan dimasukkan pada database melalui service lalu akan memindahkan tampilan ke page berhasil add.  
+         
+ **3.  Jelaskan kegunaan dari JPA Repository!**  
+       JPA Repository merupakan fitur dari Java Persistence API yang dapat membuat object pada java dengan database relasional terintegrasi, hal tersebut sangat berguna untuk modifikasi database seperti CRUD karena kita tidak perlu lagi membuat method method tersendiri.   
+         
+ **4. Sebutkan dan jelaskan di bagian kode mana sebuah relasi antara ResepModel dan ObatModel dibuat?**  
+      Relasi antara ResepModel dan ObatModel dibuat di kode bagian ResepModel.java line:32 dan ObatModel.java line:32-24. Relasi dari ResepModel dan ObatModel tersebut dibuat dengan skema one to many. ResepModel tersambung dengan ObatModel dengan anotasi @OneToMany dan ObatModel menggunakan @ManyToOne yang sudah disediakan oleh JPA Repository yang akan dimapping secara otomatis.
+        
+ **5. Jelaskan kegunaan FetchType.LAZY, CascadeType.ALL, dan FetchType.EAGER!**  
+      FetchType merupakan berbagai cara fetching data atau mengambil data dari database. FetchType.LAZY berfungsi untuk memberitahu persistence provider agar data difetch secara "malas" saat pertama kali diakses, hal tersebut berguna ketika kita tidak butuh field terkait setiap data diambil, tetapi akan diambil nanti menggunakan getter. FetchType.EAGER berfungsi untuk memberitahu persistence provider agar data difetch secara "bersemangat", hal tersebut berguna ketika kita ingin mengambil field suatu data setiap data itu diambil.  
+      CascadeType.ALL berguna untuk persistence menyediakan seluruh operasi cascade (PERSIST, REMOVE, REFRESH, MERGE, DETACH) ke entitas yang terhubung.    
+        
+  ### What I did not understand
+  - [ ] Apa yang sebenarnya terjadi di belakang layar pada method JPA Repository?  
+  - [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?                         
 
 
