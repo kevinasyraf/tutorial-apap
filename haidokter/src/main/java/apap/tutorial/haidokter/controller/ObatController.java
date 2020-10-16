@@ -68,28 +68,37 @@ public class ObatController {
         return "update-obat";
     }
 
-    @RequestMapping({"/obat/delete/{id}","/obat/delete"})
-    public String deleteHotel (
-            @PathVariable(value = "id", required = false) Optional<Long> id,
-            Model model
-    ) {
-
-        if (id.isEmpty()) {
-            model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error-1";
-        } else if (obatService.getObatById(id.get()) == null) {
-            model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error-1";
-        }
-
-        try {
-            obatService.deleteObat(id.get());
-
-            model.addAttribute("obat", id.get());
-        } catch (Exception err) {
-            model.addAttribute("status","Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error-1";
+    @PostMapping(value = "obat/delete")
+    public String deleteMenuFormSubmit(@ModelAttribute ResepModel resep, Model model) {
+        model.addAttribute("obatCount", resep.getListObat().size());
+        for (ObatModel obat : resep.getListObat()) {
+            obatService.deleteObat(obat.getId());
         }
         return "delete-obat";
     }
+
+//    @RequestMapping({"/obat/delete/{id}","/obat/delete"})
+//    public String deleteHotel (
+//            @PathVariable(value = "id", required = false) Optional<Long> id,
+//            Model model
+//    ) {
+//
+//        if (id.isEmpty()) {
+//            model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
+//            return "error-1";
+//        } else if (obatService.getObatById(id.get()) == null) {
+//            model.addAttribute("status", "Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
+//            return "error-1";
+//        }
+//
+//        try {
+//            obatService.deleteObat(id.get());
+//
+//            model.addAttribute("obat", id.get());
+//        } catch (Exception err) {
+//            model.addAttribute("status","Obat tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
+//            return "error-1";
+//        }
+//        return "delete-obat";
+//    }
 }
