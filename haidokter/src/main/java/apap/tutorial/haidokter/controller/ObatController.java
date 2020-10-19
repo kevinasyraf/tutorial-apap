@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -76,6 +79,61 @@ public class ObatController {
         }
         return "delete-obat";
     }
+
+    @GetMapping("/obat/add-multiple/{noResep}")
+    private String addMultipleResepFormPage(
+            @PathVariable Long noResep,
+            Model model
+    ) {
+        ObatModel obat = new ObatModel();
+        List<ObatModel> listObat = new ArrayList<>();
+        listObat.add(obat);
+        ResepModel resep = resepService.getResepByNomorResep(noResep);
+        resep.setListObat(listObat);
+        model.addAttribute("resep", resep);
+        return "form-add-multiple-obat";
+    }
+
+    @PostMapping(value = "/obat/add-multiple/", params = {"addRow"})
+    private String addRowObatForm(
+            @ModelAttribute ResepModel resep,
+            Model model
+    ) {
+        if (resep.getListObat() == null || resep.getListObat().size() == 0) {
+            resep.setListObat(new ArrayList<ObatModel>());
+        }
+        resep.getListObat().add(new ObatModel());
+        model.addAttribute("resep", resep);
+        return "form-add-multiple-obat";
+    }
+
+    @PostMapping(value = "/obat/add-multiple/", params = {"deleteRow"})
+    private String deleteRowObatForm(
+            @ModelAttribute ResepModel resep,
+            HttpServletRequest request,
+            Model model
+    ) {
+        Integer row = Integer.valueOf(request.getParameter("deleteRow"));
+        resep.getListObat().remove(row.intValue());
+        model.addAttribute("resep", resep);
+        return "form-add-multiple-obat";
+    }
+
+    @PostMapping(value = "/obat/add-multiple/", params = {"save"})
+        private String addMultipleObatFormSubmit(
+                @ModelAttribute ResepModel resep,
+                Model model
+        ) {
+            for (int i = 0; i < resep.getListObat().size(); i++) {
+                resep.getListObat().get(i).setResepModel(resep);
+                obatService.addObat(resep.getListObat().get(i));
+            }
+
+            model.addAttribute("count", resep.getListObat().size());
+            return "add-multiple-obat";
+        }
+
+
 
 //    @RequestMapping({"/obat/delete/{id}","/obat/delete"})
 //    public String deleteHotel (
