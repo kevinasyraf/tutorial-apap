@@ -81,6 +81,20 @@ public class ResepController {
         return "view-resep";
     }
 
+    @GetMapping("/resep/view/{noResep}")
+    public String viewDetailResepByNoResep(
+            @PathVariable(value = "noResep") Long noResep,
+            Model model
+    ) {
+        ResepModel resep = resepService.getResepByNomorResep(noResep);
+        List<ObatModel> listObat = resep.getListObat();
+
+        model.addAttribute("resep", resep);
+        model.addAttribute("listObat", listObat);
+
+        return "view-resep";
+    }
+
     @GetMapping("/resep/viewall")
     public String viewAllResep(
             Model model
@@ -104,7 +118,7 @@ public class ResepController {
             model.addAttribute("noResep", noResep.get());
         } catch (Exception err) {
             model.addAttribute("status","Nomor resep tidak ada atau tidak ditemukan sehingga proses delete dibatalkan");
-            return "error";
+            return "error-1";
         }
         return "delete-resep";
     }

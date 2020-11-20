@@ -2,36 +2,105 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
     <head>
         <title>View Resep</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
     <body>
-    <section>
-        <h2>Informasi Resep</h2>
-        <h3 th:text="'Nomor Resep: '+ ${resep.noResep}"></h3>
-        <h3 th:text="'Nama Dokter: '+ ${resep.namaDokter}"></h3>
-        <h3 th:text="'Nama Pasien: '+ ${resep.namaPasien}"></h3>
-        <h3 th:text="'Catatan: '+ ${resep.catatan}"></h3>
-
-        <td><a th:href="@{/resep/change/} + ${resep.noResep}">Change Resep</a></td>
-        <a th:href="@{/resep/delete/} + ${resep.noResep}">Delete Resep</a>
-    </section>
-    <section>
-        <h2 th:if="${listObat.isEmpty()}">Resep belum memiliki daftar obat</h2>
-        <h2 th:text="${title}"></h2>
-        <div th:each="obat : ${listObat}">
-            <h3 th:text="'ID Obat: ' + ${obat.id}"></h3>
-            <h3 th:text="'Nama: ' + ${obat.nama}"></h3>
-
-            <h3 th:if="${obat.bentuk == 0}">Bentuk: Tablet</h3>
-            <h3 th:if="${obat.bentuk == 1}">Bentuk: Kapsul</h3>
-            <h3 th:if="${obat.bentuk == 2}">Bentuk: Sirup</h3>
-
-            <h3 th:text="'Kuantitas: ' + ${obat.kuantitas}"></h3>
-
-            <a th:href="@{/obat/change/} + ${resep.noResep}">Change Obat</a>
-            <a th:href="@{/obat/delete/} + ${resep.noResep}">Delete Obat</a>
+        <nav th:replace="fragments/fragment :: navbar(~{::title})"></nav>
+        <div class="container-fluid">
+            <section>
+                <div class="card">
+                    <div class="card-header">Informasi Resep</div>
+                    <div class="card-body">
+                        <p th:text="'Nomor Resep: ' + ${resep.noResep}"></p>
+                        <p th:text="'Nama Dokter: ' + ${resep.namaDokter}"></p>
+                        <p th:text="'Nama Pasien: ' + ${resep.namaPasien}"></p>
+                        <p th:text="'Catatan: ' + ${resep.catatan}"></p>
+                        <div>
+                            <a th:href="@{/resep/change} + ${resep.noResep}" class="btn btn-success">Update Resep</a>
+                            <a th:href="@{/resep/delete/no-resep/} + ${resep.noResep}" class="btn btn-danger">Delete Resep</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2 th:text="${title}"></h2>
+                <form th:action="@{/obat/delete}" th:object="${resep}" method="POST">
+                    <div class="mb-3">
+                        <a th:href="@{/obat/add/} + ${resep.noResep}" class="btn btn-success">Add Obat</a>
+                        <a th:href="@{/obat/add-multiple/} + ${resep.noResep}" class="btn btn-outline-success">Add Multiple Obat</a>
+                        <input type="submit" value="Delete yang dipilih" class="btn btn-danger">
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>ID Obat</th>
+                                <th>Nama</th>
+                                <th>Bentuk</th>
+                                <th>Kuantitas</th>
+                                <th>Status Stok</th>
+                                <th>Aksi</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="obat, iterationStatus : ${listObat}"
+                            th:style="${iterationStatus.even} ? 'font-weight:bold;'"
+                        >
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${obat.id}"></td>
+                            <td th:text="${obat.nama}"></td>
+                            <td th:if="${obat.bentuk == 0}">Tablet</td>
+                            <td th:if="${obat.bentuk == 1}">Kapsul</td>
+                            <td th:if="${obat.bentuk == 2}">Sirup</td>
+                            <td th:text="${obat.kuantitas}"></td>
+                            <td th:text="${obat.kuantitas < 5 ? 'Stok hampir habis' : 'Stok masih banyak'}"></td>
+                            <td>
+                                <a th:href="@{/obat/change/} + ${obat.id}">Change Obat</a>
+                            </td>
+                            <td>
+                                <input type="checkbox" th:field="*{listObat}" th:value="${obat.id}">
+                                <label th:for="${#ids.prev('listObat')}">Hapus</label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </section>
         </div>
-        <br><br>
-        <td><a th:href="@{/obat/add/} + ${resep.noResep}">Add Obat</a></td>
-    </section>
+
+<!--    <section>-->
+<!--        <h2>Informasi Resep</h2>-->
+<!--        <h3 th:text="'Nomor Resep: '+ ${resep.noResep}"></h3>-->
+<!--        <h3 th:text="'Nama Dokter: '+ ${resep.namaDokter}"></h3>-->
+<!--        <h3 th:text="'Nama Pasien: '+ ${resep.namaPasien}"></h3>-->
+<!--        <h3 th:text="'Catatan: '+ ${resep.catatan}"></h3>-->
+
+<!--        <td><a th:href="@{/resep/change/} + ${resep.noResep}">Change Resep</a></td>-->
+<!--        <a th:href="@{/resep/delete/} + ${resep.noResep}">Delete Resep</a>-->
+<!--    </section>-->
+<!--    <section>-->
+<!--        <h2 th:if="${listObat.isEmpty()}">Resep belum memiliki daftar obat</h2>-->
+<!--        <h2 th:text="${title}"></h2>-->
+<!--        <div th:each="obat : ${listObat}">-->
+<!--            <h3 th:text="'ID Obat: ' + ${obat.id}"></h3>-->
+<!--            <h3 th:text="'Nama: ' + ${obat.nama}"></h3>-->
+
+<!--            <h3 th:if="${obat.bentuk == 0}">Bentuk: Tablet</h3>-->
+<!--            <h3 th:if="${obat.bentuk == 1}">Bentuk: Kapsul</h3>-->
+<!--            <h3 th:if="${obat.bentuk == 2}">Bentuk: Sirup</h3>-->
+
+<!--            <h3 th:text="'Kuantitas: ' + ${obat.kuantitas}"></h3>-->
+
+<!--            <a th:href="@{/obat/change/} + ${resep.noResep}">Change Obat</a>-->
+<!--            <a th:href="@{/obat/delete/} + ${resep.noResep}">Delete Obat</a>-->
+<!--        </div>-->
+<!--        <br><br>-->
+<!--        <td><a th:href="@{/obat/add/} + ${resep.noResep}">Add Obat</a></td>-->
+<!--    </section>-->
     </body>
 </html>

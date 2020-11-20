@@ -95,6 +95,26 @@ Hari ini, saya sudah belajar lebih dalam mengenai prinsip MVC pada spring boot d
         
   ### What I did not understand
   - [ ] Apa yang sebenarnya terjadi di belakang layar pada method JPA Repository?  
-  - [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?                         
+  - [ ] Bagaimana cara mengimplementasikan automated error page pada Spring Boot?    
+  
+## Tutorial 4
+### What I have learned today  
+   Saya sudah belajar Presentation Layer pada Spring Boot, seperti fragment, error handling, iteration pada html, dan lain-lain
+   ### Pertanyaan
+   **1.  Jelaskan perbedaan th:include dan th:replace**  
+        th:include berfungsi untuk memasukkan atribut dari fragment ke dalam tag terkait, sedangkan th:replace berfungsi untuk menggantikan seluruh atribut pada tag dengan fragment
+          
+   **2.  Jelaskan apa fungsi dari th:object**  
+         th:object berfungsi untuk mendefine objek yang digunakan pada data form  
+           
+   **3.  Jelaskan perbedaan dari * dan $ pada saat penggunaan th:object! Kapan harus dipakai?**  
+         $ digunakan untuk mengakses variabel dari controller, sedangkan * digunakan untuk mengakses atribut dari objek yang digunakan dengan $   
+           
+   **4. Bagaimana kamu menyelesaikan latihan nomor 3**  
+        Saya menggunakan fitur Flexible Layouts pada Thymeleaf, dengan cara merender bagian navbar dengan menggunakan variabel atau data lain, yaitu data dari tag title dengan menggunakan perintah fragment :: navbar(~{::title}). Title dari page diinclude pada bagian span untuk bagian paling kanan pada fragment.html  
+      
+          
+### What I did not understand
+- [ ] Apa yang sebenarnya terjadi di belakang layar pada method method untuk Presentation Layer?                     
 
 
