@@ -24,6 +24,11 @@ public class ResepRestServiceImpl implements ResepRestService {
     @Autowired
     private ResepDb resepDb;
 
+    @Autowired
+    public ResepRestServiceImpl(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
     @Override
     public ResepModel createResep(ResepModel resep) {
         return resepDb.save(resep);
@@ -75,4 +80,6 @@ public class ResepRestServiceImpl implements ResepRestService {
         data.add("namaPasien", "Dede APAP");
         return this.webClient.post().uri("/rest/resep/full").syncBody(data).retrieve().bodyToMono(ResepDetail.class);
     }
+
+
 }
