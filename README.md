@@ -115,6 +115,27 @@ Hari ini, saya sudah belajar lebih dalam mengenai prinsip MVC pada spring boot d
       
           
 ### What I did not understand
+- [ ] Apa yang sebenarnya terjadi di belakang layar pada method method untuk Presentation Layer?
+  
+    
+## Tutorial 5
+### What I have learned today  
+   Saya sudah belajar REST API dan juga penggunaan postman untuk pengetesannya.
+   ### Pertanyaan
+   **1.  Apa itu Postman? Apa kegunaannya?**  
+        Postman merupakan aplikasi untuk melakukan pengetesan terhadap API yang sudah dibuat. Postman dapat melakukan fungsi-fungsi request HTML dengan lebih mudah dan simpel, seperti POST dan GET, sehingga sering digunakan untuk mengetes fungsi API.
+          
+   **2.  Jelaskan fungsi dari anotasi @JsonIgnoreProperties dan @JsonProperty.**  
+         @JsonIgnoreProperties berfungsi untuk mencegah field tertentu untuk diserialize atau di deserialize. @JsonProperty berguna untuk melakukan mapping dari JSON property ke field di Java. 
+           
+   **3.  Apa kegunaan atribut WebClient?**  
+         Atribut WebClient digunakan untuk menyimpan objek-objek yang yang akan digunakan pada client seperti URI.   
+           
+   **4. Apa itu ResponseEntity dan BindingResult? Apa kegunaannya?**  
+        ResponseEntity merupakan objek yang merepresentasikan seluruh HTTP Response seperti status code, headers, dan body yang digunakan untuk mengkonfigurasi HTTP response. BindingResult adalah objek yang digunakan salah satunya untuk memvalidasi method validation dalam controller. 
+      
+          
+### What I did not understand
 - [ ] Apa yang sebenarnya terjadi di belakang layar pada method method untuk Presentation Layer?                     
 
 
