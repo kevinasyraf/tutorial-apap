@@ -24,4 +24,25 @@ public class UserServiceImpl implements UserService {
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
+
+    @Override
+    public UserModel getByUsername(String username) {
+        return userDB.findByUsername(username);
+    }
+
+    @Override
+    public boolean passwordMatch(String password1, String password2) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean oldAndNewPasswordMatch = passwordEncoder.matches(password1, password2);
+        return oldAndNewPasswordMatch;
+    }
+
+//    @Override
+//    public void updatePassword(UserModel user, String oldPassword, String newPassword) {
+//        UserModel updatedUser = userDB.findByUsername(user.getUsername());
+//        if (passwordMatch(user.getPassword(), newPassword)) {
+//            user.setPassword(newPassword);
+//        }
+//
+//    }
 }
