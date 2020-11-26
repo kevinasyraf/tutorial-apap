@@ -9,7 +9,11 @@ public interface UserService {
 
     public UserModel getByUsername(String username);
 
-    boolean passwordMatch(String oldPassword, String newPassword);
+    public boolean passwordMatch(String oldPassword, String newPassword);
+
+    public boolean passwordRequirementFulfilled(String password);
+
+
 
 //    void updatePassword(UserModel user, String oldPassword, String newPassword);
 }

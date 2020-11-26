@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -37,7 +40,15 @@ public class UserServiceImpl implements UserService {
         return oldAndNewPasswordMatch;
     }
 
-//    @Override
+    @Override
+    public boolean passwordRequirementFulfilled(String password) {
+        Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+        Matcher matcher = pattern.matcher(password);
+        boolean passwordRequirementFulfillment = matcher.find();
+        return passwordRequirementFulfillment;
+    }
+
+    //    @Override
 //    public void updatePassword(UserModel user, String oldPassword, String newPassword) {
 //        UserModel updatedUser = userDB.findByUsername(user.getUsername());
 //        if (passwordMatch(user.getPassword(), newPassword)) {

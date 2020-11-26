@@ -19,8 +19,11 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     private String addUserSubmit(@ModelAttribute UserModel user, Model model) {
-        userService.addUser(user);
-        model.addAttribute("user", user);
+        if (userService.passwordRequirementFulfilled(user.getPassword())) {
+            userService.addUser(user);
+        } else {
+            model.addAttribute("messagePasswordRequirement", "Password harus mengandung angka dan huruf serta minimal memiliki 8 karakter");
+        }
         return "redirect:/";
     }
 
@@ -29,9 +32,13 @@ public class UserController {
         UserModel updatedUser = userService.getByUsername(user.getUsername());
         if (userService.passwordMatch(oldPassword, updatedUser.getPassword())) {
             if (newPassword.equals(confirmationPassword)) {
-                updatedUser.setPassword(newPassword);
-                userService.addUser(updatedUser);
-                model.addAttribute("message", "Password berhasil diubah");
+                if (userService.passwordRequirementFulfilled(newPassword)) {
+                    updatedUser.setPassword(newPassword);
+                    userService.addUser(updatedUser);
+                    model.addAttribute("message", "Password berhasil diubah");
+                } else {
+                    model.addAttribute("messagePasswordRequirement", "Password harus mengandung angka dan huruf serta minimal memiliki 8 karakter");
+                }
             } else {
                 model.addAttribute("message", "Password baru tidak cocok dengan konfirmasi password baru tidak cocok");
             }
