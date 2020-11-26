@@ -3,6 +3,7 @@ package apap.tutorial.haidokter.service;
 import apap.tutorial.haidokter.model.ResepModel;
 import apap.tutorial.haidokter.repository.ResepDb;
 import apap.tutorial.haidokter.rest.ResepDetail;
+import apap.tutorial.haidokter.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -23,11 +24,6 @@ public class ResepRestServiceImpl implements ResepRestService {
 
     @Autowired
     private ResepDb resepDb;
-
-    @Autowired
-    public ResepRestServiceImpl(WebClient webClient) {
-        this.webClient = webClient;
-    }
 
     @Override
     public ResepModel createResep(ResepModel resep) {
@@ -68,6 +64,10 @@ public class ResepRestServiceImpl implements ResepRestService {
         }
     }
 
+    public ResepRestServiceImpl(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl(Setting.resepUrl).build();
+    }
+
     @Override
     public Mono<String> getStatus(Long noResep) {
         return this.webClient.get().uri("/rest/resep/"+noResep+"/status").retrieve().bodyToMono(String.class);
@@ -80,6 +80,4 @@ public class ResepRestServiceImpl implements ResepRestService {
         data.add("namaPasien", "Dede APAP");
         return this.webClient.post().uri("/rest/resep/full").syncBody(data).retrieve().bodyToMono(ResepDetail.class);
     }
-
-
 }
