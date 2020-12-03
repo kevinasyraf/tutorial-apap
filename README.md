@@ -136,6 +136,29 @@ Hari ini, saya sudah belajar lebih dalam mengenai prinsip MVC pada spring boot d
       
           
 ### What I did not understand
-- [ ] Apa yang sebenarnya terjadi di belakang layar pada method method untuk Presentation Layer?                     
+- [ ] Apa yang sebenarnya terjadi di belakang layar pada Web Client?  
+  
+    
+## Tutorial 6
+### What I have learned today  
+   Saya sudah belajar bagaimana cara mengaplikasikan aspek security pada Spring Boot seperti autentikasi dan otorisasi.
+   ### Pertanyaan
+   **1.  Jelaskan secara singkat perbedaan Otentikasi dan Otorisasi! Di bagian mana (dalam kode yang telah anda
+         buat) konsep tersebut diimplementasi?**  
+        Otentikasi merupakan proses dari mengizinkan atau verifikasi user seperti dengan menggunakan username dan password, sedangkan otorisasi merupakan proses pemberian izin user dalam mengakses sesuatu sesuai dengan status user tersebut, seperti user yang tidak bisa melihat resep dan hanya apoteker yang hanya bisa melihat resep. Otentikasi diimplementasi pada bagian fitur login dengan menggunakan username dan password yang di mana username dan password tersebut akan dicek apakah terdapat pada database User atau tidak. Jika ada pada database, maka sistem akan memverifikasi user dan mengizinkan user untuk login, sedangkan jika username dan password tidak ada pada database, maka user tidak akan diverifikasi oleh sistem dan user tidak bisa login dan mengakses sistem. Otorisasi diimplementasikan pada bagian fitur view all resep yang hanya dibolehkan untuk role APOTEKER dan role yang lain tidak bisa melakukan view all resep.
+          
+   **2.  Apa itu BCryptPasswordEncoder? Jelaskan secara singkat cara kerjanya!**  
+         BCryptPasswordEncoder merupakan suatu objek pada Java yang merupakan implementasi dari PasswordEncoder untuk melakukan fungsi hash dengan metode BCrypt. Cara kerjanya adalah objek tersebut memiliki salah satu method yaitu encode() yang menerima input suatu string dan string tersebut akan dilakukan hash atau encode dengan menggunakan metode BCrypt.
+           
+   **3.  Jelaskan secara singkat apa itu UUID beserta penggunaannya!**  
+         UUID adalah Universally Unique Identifier yang merupakan angka 128-bit yang berarti suatu angka yang berkisar dari 0 sampai dengan 2^128 yang digunakan untuk mengidentifikasikan sesuatu secara unik karena kemungkinan adanya dua UUID yang sama sangatlah kecil karena range UUID yang sangat besar.  
+           
+   **4. Apa kegunaan class UserDetailsServiceImpl.java? Mengapa harus ada class tersebut padahal kita sudah
+        memiliki class UserServiceImpl.java?**  
+        Class UserDetailsServiceImpl.java berguna untuk mengimplementasi UserDetailsService yang memiliki beberapa method yang berguna untuk mengambil data terkait user seperti loadUserByUsername. Class tersebut harus tetap ada karena fungsinya berbeda dengan UserServiceImpl yang di mana fungsi dari UserServiceImpl adalah untuk mengelola data user, bukan mengambil data.
+      
+          
+### What I did not understand
+- [ ] Apa yang sebenarnya terjadi di belakang layar pada User Details Service?                                              
 
 
